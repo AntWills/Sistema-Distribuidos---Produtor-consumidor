@@ -1,0 +1,10 @@
+name: produtor-consumidor
+
+services:
+  cliente-back:
+    image: cliente-back:latest
+    build:
+      context: ./cliente
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
