@@ -16,5 +16,15 @@ services:
     build: 
       context: ./lanchonete
       dockerfile: Dockerfile
+    environment:
+      - URL_FATURAMENTO=http://faturamento-back:8080
     ports:
       - "8081:8080"
+
+  faturamento-back:
+    image: faturamento-back:latest
+    build:
+      context: ./faturamento
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
