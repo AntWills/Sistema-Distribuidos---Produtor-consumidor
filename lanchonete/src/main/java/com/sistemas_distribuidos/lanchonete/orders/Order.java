@@ -1,7 +1,19 @@
 package com.sistemas_distribuidos.lanchonete.orders;
 
-public record Order (
-        Integer id,
-        OrderStatus status
-) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Service;
+
+import javax.swing.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Service
+public class Order {
+    private Integer id;
+    OrderStatus status;
 }

@@ -18,8 +18,18 @@ public class OrderController {
         return orderService.getOrders();
     }
 
+    @GetMapping("/{id}")
+    public Order findById(@PathVariable Integer id) {
+        return orderService.getById(id);
+    }
+
     @PostMapping("")
     public Order create(@RequestBody CreateOrderReq req) {
         return orderService.createOrder(req.itemId());
+    }
+
+    @PatchMapping("/{id}/next")
+    public Order update(@PathVariable Integer id) {
+        return this.orderService.nextStatus(id);
     }
 }

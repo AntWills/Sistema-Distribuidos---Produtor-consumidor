@@ -64,6 +64,27 @@ public class OrderService {
         return order;
     }
 
+    public Order getById(Integer id) {
+        return this.orders.stream()
+                .filter(order -> order.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Order com ID " + id + "não existe."));
+    }
+
+    public Order nextStatus(Integer id) {
+        Order order = this.getById(id);
+
+        OrderStatus nextStatus = switch (order.getStatus()) {
+            case PREPARANDO -> OrderStatus.COZINHANDO;
+            case COZINHANDO -> OrderStatus.COMPLETO;
+            case COMPLETO -> OrderStatus.COMPLETO; // ou lançar exceção
+        };
+
+        order.setStatus(nextStatus);
+
+        return order;
+    }
+
     public List<Order> getOrders() {
         return orders;
     }
