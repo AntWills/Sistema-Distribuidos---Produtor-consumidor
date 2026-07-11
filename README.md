@@ -1,6 +1,13 @@
 # O Problema do Produtor-Consumidor em uma Lanchonete Online
 
-Este repositório foi desenvolvido para a avaliação final da disciplina de Sistemas Distribuídos. Nele são implementados três sistemas (APIs) independentes, sendo eles Cliente, Lanchonete e Faturamento, isolados em containers próprios, que se comunicam exclusivamente por meio de requisições HTTP.
+Este repositório foi desenvolvido para a avaliação final da disciplina de Sistemas Distribuídos. Nele são implementados três sistemas (APIs) independentes, sendo eles Cliente, Lanchonete e Faturamento, isolados em containers próprios, para simular o uso de diferentes máquinas, que se comunicam exclusivamente por meio de requisições HTTP.
+
+Integrantes do grupo
+- Antonio Wills da Silva Santos
+- Evelly Victory Vieira Pinto
+- Francisco Leonel Ferreira dos Santos
+- Jonas Davi Nogueira Sena
+- Luís Felipe Assunção Pereira
 
 ## Produtor-Consumidor
 
