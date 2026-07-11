@@ -1,4 +1,4 @@
-package com.sistemas_distribuidos.lanchonete;
+package com.sistemas_distribuidos.lanchonete.items;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +11,8 @@ import java.util.List;
 public class ItemController {
     private ItemService itemService;
 
-    public ItemController () {
-        itemService = new ItemService();
+    public ItemController (ItemService itemService) {
+        this.itemService = itemService;
     }
 
     @GetMapping("")

@@ -1,4 +1,4 @@
-package com.sistemas_distribuidos.lanchonete;
+package com.sistemas_distribuidos.lanchonete.orders;
 
 public enum OrderStatus {
     PREPARANDO,

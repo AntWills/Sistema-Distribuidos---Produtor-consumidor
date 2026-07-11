@@ -1,5 +1,7 @@
-package com.sistemas_distribuidos.lanchonete;
+package com.sistemas_distribuidos.lanchonete.items;
 
+import com.sistemas_distribuidos.lanchonete.orders.Order;
+import com.sistemas_distribuidos.lanchonete.orders.OrderStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,10 +12,8 @@ import java.util.Random;
 @Service
 public class ItemService {
     private List<Item> items;
-    private List<Order> orders;
 
     public ItemService () {
-        orders = new ArrayList<>();
         items = new LinkedList<>();
 
         items.add(new Item(
@@ -30,24 +30,7 @@ public class ItemService {
                 10F));
     }
 
-    public Order createOrder(Integer itemId) {
-        Random random = new Random();
-
-        Order order = new Order(
-                random.nextInt(),
-                OrderStatus.PREPARANDO
-        );
-
-        orders.add(order);
-
-        return order;
-    }
-
     public List<Item> getItems() {
         return items;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
     }
 }

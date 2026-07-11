@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
@@ -9,14 +10,32 @@ import (
 )
 
 type Item struct {
-	ID   int64  `json:"id"`
-	Name string `json:"name"`
+	ID    int64   `json:"id"`
+	Name  string  `json:"name"`
+	Price float64 `json:"price"`
 }
 
 func listItens(ctx *gin.Context) {
-	itens := []Item{
-		{ID: 1, Name: "Ambugerger"},
-		{ID: 2, Name: "Cachorro quente"},
+	url_lanchonete := os.Getenv("URL_LANCHONETE")
+
+	resp, err := http.Get(url_lanchonete + "/items")
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	defer resp.Body.Close()
+
+	var itens []Item
+
+	if err := json.NewDecoder(resp.Body).Decode(&itens); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 	ctx.IndentedJSON(http.StatusOK, itens)
