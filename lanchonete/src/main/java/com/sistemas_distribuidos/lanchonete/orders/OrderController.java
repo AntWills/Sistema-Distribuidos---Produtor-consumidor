@@ -20,6 +20,6 @@ public class OrderController {
 
     @PostMapping("")
     public Order create(@RequestBody CreateOrderReq req) {
-        return orderService.createOrder(req.item_id);
+        return orderService.createOrder(req.itemId());
     }
 }

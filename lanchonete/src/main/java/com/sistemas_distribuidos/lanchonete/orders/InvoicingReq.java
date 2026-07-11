@@ -1,10 +1,11 @@
 package com.sistemas_distribuidos.lanchonete.orders;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record CreateOrderReq (
+public record InvoicingReq(
         @JsonProperty("item_id")
-        Integer itemId
+        Integer itemId,
+        Float price
 ) {
-
 }
