@@ -10,3 +10,11 @@ services:
       - URL_LANCHONETE=localhosot:8081
     ports:
       - "8080:8080"
+
+  lanchonete-back:
+    image: lanchonete-back:latest
+    build: 
+      context: ./lanchonete
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
