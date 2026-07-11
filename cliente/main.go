@@ -1,8 +1,8 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 
@@ -46,11 +46,43 @@ type Order struct {
 }
 
 func createOrder(ctx *gin.Context) {
-	url_lanchonete := os.Getenv("URL_LANCHONETE")
+	var order Order
 
-	fmt.Print("Carregou: " + url_lanchonete)
+	if err := ctx.ShouldBindJSON(&order); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 
-	ctx.IndentedJSON(http.StatusAccepted, url_lanchonete)
+	url := os.Getenv("URL_LANCHONETE") + "/orders"
+
+	body, err := json.Marshal(order)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+	if err != nil {
+		ctx.JSON(http.StatusBadGateway, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	defer resp.Body.Close()
+
+	var response any
+	if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(resp.StatusCode, response)
 }
 
 func main() {
