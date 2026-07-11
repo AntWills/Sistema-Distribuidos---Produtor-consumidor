@@ -3,33 +3,43 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Item struct {
+	ID   int64  `json:"id"`
 	Name string `json:"name"`
 }
 
-func helloName(ctx *gin.Context) {
-	var item Item
-
-	if err := ctx.BindJSON(&item); err != nil {
-		fmt.Print(err)
-		ctx.IndentedJSON(http.StatusBadRequest, gin.H{
-			"message": "Invalid request",
-		})
-		return
+func listItens(ctx *gin.Context) {
+	itens := []Item{
+		{ID: 1, Name: "Ambugerger"},
+		{ID: 2, Name: "Cachorro quente"},
 	}
 
-	ctx.IndentedJSON(http.StatusOK, item)
+	ctx.IndentedJSON(http.StatusOK, itens)
+}
+
+type Order struct {
+	ItemID int64 `json:"item_id"`
+}
+
+func createOrder(ctx *gin.Context) {
+	url_lanchonete := os.Getenv("URL_LANCHONETE")
+
+	fmt.Print("Carregou: " + url_lanchonete)
+
+	ctx.IndentedJSON(http.StatusAccepted, url_lanchonete)
 }
 
 func main() {
 	// Create a Gin router with default middleware (logger and recovery)
 	router := gin.Default()
 
-	router.POST("/item", helloName)
+	router.POST("/items", listItens)
+	router.POST("/order", createOrder)
 
 	// Define a simple GET endpoint
 	router.GET("/ping", func(c *gin.Context) {

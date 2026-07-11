@@ -6,5 +6,7 @@ services:
     build:
       context: ./cliente
       dockerfile: Dockerfile
+    environment:
+      - URL_LANCHONETE=localhosot:8081
     ports:
       - "8080:8080"
